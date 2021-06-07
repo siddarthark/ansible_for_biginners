@@ -1,0 +1,11 @@
+---
+- name: to clone git repo using the vault password
+  hosts: all
+  become: true
+  vars_files:
+  - passwordgit.yml
+  tasks: 
+  - name: to clone git repository
+    git:
+      repo:  https://siddarthark:{{ password }}@github.com/siddarthark/vault.git
+      dest: /home/ansadmin/vault

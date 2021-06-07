@@ -1,0 +1,11 @@
+---
+- name: to create test file
+  hosts: all
+  vars_files:
+  - dir.yml 
+  tasks:
+  - name: create a directory
+    file:
+      path: "{{ dir }}"
+      state: directory
+      mode: 0666

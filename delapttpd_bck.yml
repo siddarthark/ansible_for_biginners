@@ -1,0 +1,38 @@
+---
+- name: remove httpd and apache2 from all servers
+  hosts: all
+  become: true
+  tasks:
+  - name: stop httpd
+    service: 
+      name: httpd
+      state: stopped
+    when: ansible_os_family == "RedHat"
+    tags: stop_apache
+    notify: remove httpd
+
+  - name: stop apache2
+    service:
+      name: apache2
+      state: stopped
+    when: ansible_os_family == "Debian"
+    tags: stop_apache
+    notify: remove apache2
+
+  - name: remove index.html file
+    file:
+      path: /var/www/html/index.html
+      state: absent
+      
+  handlers:
+  - name: remove httpd
+    yum:
+      name: httpd
+      state: removed
+    tags: absent
+
+  - name: remove apache2
+    apt:
+      name: apache2
+      state: absent
+    tags: remove_apache

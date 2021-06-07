@@ -1,0 +1,13 @@
+---
+- name: this playbook is to create tasks
+  hosts: all
+  become: true
+  tasks:
+  - name: setup users in all servers
+    user:
+      name: johnny
+
+  - name: pinging all machines
+    ping:
+      data: ping
+

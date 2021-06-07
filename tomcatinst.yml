@@ -1,0 +1,46 @@
+---
+- name: installing the tomcat service
+  hosts: all
+  become: true
+  vars_files:
+  - status.yml
+  tasks:
+  - name: installing java on red hat and amazon servers
+    yum:
+      name: java
+      state: installed
+    when: ansible_os_family == "RedHat"
+
+  - name: installing default jdk in ubuntu
+    apt:
+      name: default-jdk
+      state: present
+    when: ansible_os_family == "Debian"
+
+  - name: downloading the tomcat url
+    get_url:
+      url: https://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.66/bin/apache-tomcat-8.5.66.tar.gz
+      dest: /home/ansadmin
+      mode: 0777
+
+  - name: unarchieving the tomcat tar file 
+    unarchive: 
+      src: /home/ansadmin/apache-tomcat-8.5.66.tar.gz
+      dest: /home/ansadmin
+      remote_src: yes
+      mode: 0777
+
+  - name: giving executable permission for the file startup.sh
+    file: 
+      path: /home/ansadmin/apache-tomcat-8.5.66/bin/startup.sh
+      mode: 0777
+
+  - name: run the shell script startup.sh
+    shell:
+      chdir: /home/ansadmin/apache-tomcat-8.5.66/bin/
+      cmd: "{{ status }}"
+ 
+
+
+
+

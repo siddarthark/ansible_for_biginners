@@ -1,0 +1,9 @@
+---
+- name: installing package  git using apt model
+  hosts: dbservers
+  become: true
+  tasks:
+  - name: install git in ubuntu
+    apt:
+      name: git
+      state: present

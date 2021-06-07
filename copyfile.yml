@@ -1,0 +1,11 @@
+---
+- name: to copy a file
+  hosts: all
+  become: true
+  tasks:
+  - name: copy from src to destination
+    copy:
+       src: /home/ansadmin/ansible_tasks/index.html
+       dest: /home/ansadmin
+       mode: 660
+       owner: amma

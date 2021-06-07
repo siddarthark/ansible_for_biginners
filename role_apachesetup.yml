@@ -1,0 +1,6 @@
+---
+- name: to install httpd in webservers and apache2 in dbservers
+  hosts: all
+  become: true
+  roles:
+    - role_apachesetup

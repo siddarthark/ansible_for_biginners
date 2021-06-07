@@ -1,0 +1,11 @@
+---
+- name: remove vault
+  hosts: all
+  become: true
+  vars_files:
+  - vaultremovepass.yml
+  tasks:
+  - name: remove the vault folder
+    file:
+      path: "{{ path }}"
+      state: absent

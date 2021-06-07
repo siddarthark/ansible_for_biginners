@@ -1,0 +1,26 @@
+---
+- name: start httpd service
+  service:
+      name: httpd
+      state: started
+  tags: start_apache
+
+- name: start apache service
+  service:
+      name: apache2
+      state: started
+  tags: start_apache2
+
+- name: restart httpd service
+  service:
+      name: httpd
+      state: restarted
+  tags: restart_httpd
+
+- name: restart apache service
+  service:
+      name: apache2
+      state: started
+  tags: restart_apache
+
+
